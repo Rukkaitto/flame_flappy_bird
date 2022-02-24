@@ -10,13 +10,4 @@ class BackgroundTile extends SpriteComponent with HasGameRef<FlappyBird> {
     height = gameRef.size.y;
     width = height * sprite!.originalSize.x / sprite!.originalSize.y;
   }
-
-  @override
-  void update(double dt) {
-    position += Vector2(-100 * dt, 0);
-  }
-
-  void goToFront() {
-    position = Vector2(width, 0);
-  }
 }
