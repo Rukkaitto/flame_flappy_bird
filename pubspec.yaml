@@ -22,3 +22,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/flappy/
+  fonts:
+  - family: 04b_19
+    fonts:
+      - asset: assets/fonts/04B_19__.TTF
+        style: normal

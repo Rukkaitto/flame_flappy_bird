@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
+import 'package:flame_flappy_bird/components/scrolling_pipes.dart';
 import 'package:flame_flappy_bird/flappy_bird.dart';
 
 enum Direction {
@@ -30,13 +31,13 @@ class Pipe extends SpriteComponent
   @override
   void update(double dt) {
     if (x < gameRef.player.x && !scored) {
-      gameRef.incrementScore();
+      gameRef.scoreText.incrementScore();
       scored = true;
     }
     if (gameRef.isGameOver) {
       return;
     }
-    if (x < 100) {
+    if (x < -ScrollingPipes.popOffset) {
       removeFromParent();
     }
     x += -FlappyBird.foregroundSpeed * dt;
