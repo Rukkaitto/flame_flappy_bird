@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/geometry.dart';
 import 'package:flame_flappy_bird/components/ground_tile.dart';
+import 'package:flame_flappy_bird/components/pipe.dart';
 import 'package:flame_flappy_bird/flappy_bird.dart';
 
 class Flappy extends SpriteComponent
@@ -48,7 +49,7 @@ class Flappy extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, Collidable other) {
-    if (other is GroundTile) {
+    if (other is GroundTile || other is Pipe) {
       gameRef.isGameOver = true;
     }
   }
