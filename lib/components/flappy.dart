@@ -9,6 +9,7 @@ import 'package:flame_flappy_bird/flappy_bird.dart';
 class Flappy extends SpriteComponent
     with HasGameRef<FlappyBird>, HasHitboxes, Collidable {
   double yVelocity = 0;
+  bool isGrounded = false;
   static double jumpVelocity = 20;
 
   Flappy() {
@@ -31,7 +32,7 @@ class Flappy extends SpriteComponent
 
   @override
   void update(double dt) {
-    if (gameRef.started && !gameRef.isGameOver) {
+    if (gameRef.started && !isGrounded) {
       // Add gravity to the y velocity
       yVelocity += gameRef.gravity;
 
@@ -50,7 +51,8 @@ class Flappy extends SpriteComponent
   @override
   void onCollision(Set<Vector2> intersectionPoints, Collidable other) {
     if (other is GroundTile || other is Pipe) {
-      gameRef.isGameOver = true;
+      isGrounded = true;
     }
+    gameRef.isGameOver = true;
   }
 }

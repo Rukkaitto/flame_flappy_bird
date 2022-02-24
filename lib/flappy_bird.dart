@@ -1,3 +1,4 @@
+import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flame_flappy_bird/components/background_tile.dart';
@@ -36,6 +37,7 @@ class FlappyBird extends FlameGame with TapDetector, HasCollidables {
     pipes = ScrollingPipes();
     player = Flappy();
 
+    add(ScreenCollidable());
     add(background);
     add(pipes);
     add(ground);
@@ -47,6 +49,8 @@ class FlappyBird extends FlameGame with TapDetector, HasCollidables {
     if (!started) {
       started = true;
     }
-    player.jump();
+    if (!isGameOver) {
+      player.jump();
+    }
   }
 }
