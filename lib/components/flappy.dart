@@ -6,7 +6,7 @@ import 'package:flame_flappy_bird/components/ground_tile.dart';
 import 'package:flame_flappy_bird/components/pipe.dart';
 import 'package:flame_flappy_bird/flappy_bird.dart';
 
-class Flappy extends SpriteComponent
+class Flappy extends SpriteAnimationComponent
     with HasGameRef<FlappyBird>, HasHitboxes, Collidable {
   double yVelocity = 0;
   bool isGrounded = false;
@@ -21,10 +21,18 @@ class Flappy extends SpriteComponent
   Future<void>? onLoad() async {
     await super.onLoad();
 
-    sprite = await gameRef.loadSprite('flappy.png');
+    final frames = [
+      await gameRef.loadSprite('flappy/flappy_1.png'),
+      await gameRef.loadSprite('flappy/flappy_2.png'),
+      await gameRef.loadSprite('flappy/flappy_3.png'),
+    ];
+    animation = SpriteAnimation.spriteList(
+      frames,
+      stepTime: 0.1,
+    );
 
-    width = sprite!.originalSize.x;
-    height = sprite!.originalSize.y;
+    width = frames.first.originalSize.x;
+    height = frames.first.originalSize.y;
     scale = Vector2.all(3);
     position = gameRef.size / 2;
     anchor = Anchor.center;
@@ -32,6 +40,9 @@ class Flappy extends SpriteComponent
 
   @override
   void update(double dt) {
+    if (!isGrounded) {
+      animation?.update(dt);
+    }
     if (gameRef.started && !isGrounded) {
       // Add gravity to the y velocity
       yVelocity += gameRef.gravity;

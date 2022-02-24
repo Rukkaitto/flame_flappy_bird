@@ -10,6 +10,7 @@ enum Direction {
 class Pipe extends SpriteComponent
     with HasGameRef<FlappyBird>, HasHitboxes, Collidable {
   final Direction direction;
+  bool scored = false;
 
   Pipe({required this.direction}) {
     final shape = HitboxRectangle(relation: Vector2.all(1.0));
@@ -28,6 +29,10 @@ class Pipe extends SpriteComponent
 
   @override
   void update(double dt) {
+    if (x < gameRef.player.x && !scored) {
+      gameRef.incrementScore();
+      scored = true;
+    }
     if (gameRef.isGameOver) {
       return;
     }
