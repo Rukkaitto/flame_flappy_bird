@@ -1,11 +1,19 @@
 import 'dart:math';
 
 import 'package:flame/components.dart';
+import 'package:flame/geometry.dart';
+import 'package:flame_flappy_bird/components/ground_tile.dart';
 import 'package:flame_flappy_bird/flappy_bird.dart';
 
-class Flappy extends SpriteComponent with HasGameRef<FlappyBird> {
+class Flappy extends SpriteComponent
+    with HasGameRef<FlappyBird>, HasHitboxes, Collidable {
   double yVelocity = 0;
   static double jumpVelocity = 20;
+
+  Flappy() {
+    final shape = HitboxRectangle(relation: Vector2.all(1.0));
+    addHitbox(shape);
+  }
 
   @override
   Future<void>? onLoad() async {
@@ -22,7 +30,7 @@ class Flappy extends SpriteComponent with HasGameRef<FlappyBird> {
 
   @override
   void update(double dt) {
-    if (gameRef.started) {
+    if (gameRef.started && !gameRef.isGameOver) {
       // Add gravity to the y velocity
       yVelocity += gameRef.gravity;
 
@@ -36,5 +44,12 @@ class Flappy extends SpriteComponent with HasGameRef<FlappyBird> {
 
   void jump() {
     yVelocity = jumpVelocity;
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, Collidable other) {
+    if (other is GroundTile) {
+      gameRef.isGameOver = true;
+    }
   }
 }

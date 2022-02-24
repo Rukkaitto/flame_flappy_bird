@@ -23,6 +23,10 @@ class InfiniteScrolling<T extends PositionComponent> extends PositionComponent
 
   @override
   void update(double dt) {
+    if (gameRef.isGameOver) {
+      return;
+    }
+
     // Ensure that tile1 is always to the the right of tile2
     tile1.x = tile2.x + tile2.width - 1;
 

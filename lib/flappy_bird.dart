@@ -5,9 +5,10 @@ import 'package:flame_flappy_bird/components/flappy.dart';
 import 'package:flame_flappy_bird/components/ground_tile.dart';
 import 'package:flame_flappy_bird/components/infinite_scrolling.dart';
 
-class FlappyBird extends FlameGame with TapDetector {
+class FlappyBird extends FlameGame with TapDetector, HasCollidables {
   final double gravity = -1;
   bool started = false;
+  bool isGameOver = false;
 
   late InfiniteScrolling<BackgroundTile> background;
   late InfiniteScrolling<GroundTile> ground;
