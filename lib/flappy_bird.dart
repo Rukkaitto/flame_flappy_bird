@@ -43,7 +43,7 @@ class FlappyBird extends FlameGame with TapDetector, HasCollidables {
     scoreText = TextComponent(
       text: 'SHFJKSLGH',
       textRenderer: TextPaint(
-        style: TextStyle(color: BasicPalette.white.color),
+        style: TextStyle(color: BasicPalette.white.color, fontSize: 30),
       ),
     )
       ..anchor = Anchor.center

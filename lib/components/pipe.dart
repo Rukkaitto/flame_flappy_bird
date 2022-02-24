@@ -36,6 +36,9 @@ class Pipe extends SpriteComponent
     if (gameRef.isGameOver) {
       return;
     }
+    if (x < 100) {
+      removeFromParent();
+    }
     x += -FlappyBird.foregroundSpeed * dt;
   }
 }

@@ -48,7 +48,7 @@ class Flappy extends SpriteAnimationComponent
       yVelocity += gameRef.gravity;
 
       // Apply y velocity to position
-      position += Vector2(0, -yVelocity);
+      y += -yVelocity;
 
       // Rotate the sprite depending on the velocity and clamp it between -45 and 45 degrees
       angle = (-yVelocity * 0.04).clamp(-pi / 2, pi / 2);
